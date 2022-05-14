@@ -16,11 +16,8 @@ let currentPage = 1;
 let totalColectionCount;
 
 function goToNextPage() {
-  // console.log('heading to the next page.')
   const mainConatiner = document.getElementById("monster-container");
   const lastElementId = mainConatiner.lastElementChild.id;
-  console.log("last element id:", lastElementId);
-  console.log("total collection count:", totalColectionCount);
   if (lastElementId < totalColectionCount) {
     console.log("next page");
     currentPage += 1;
@@ -29,14 +26,12 @@ function goToNextPage() {
 }
 
 function goToPreviousPage() {
-  console.log("this is the current page:", currentPage);
   if (currentPage > 1) {
     console.log("going back a page");
     currentPage -= 1;
     fetchMonsters();
   }
 }
-
 
 function getTotalCollectionCount() {
     fetch("http://localhost:3000/monsters")
@@ -50,13 +45,11 @@ function fetchMonsters() {
     .then((monsters) => {
       const mainConatiner = document.getElementById("monster-container");
       mainConatiner.innerHTML = "";
-      //   console.log(monsters);
       monsters.forEach((monster) => renderMonster(monster));
     });
 }
 
 function renderMonster(monster) {
-  // console.log(monster);
   const mainConatiner = document.getElementById("monster-container");
   const div = document.createElement("div");
   div.id = monster.id;
@@ -99,7 +92,6 @@ function submitMonster(e) {
   const name = e.target.children[0].value;
   const age = e.target.children[1].value;
   const description = e.target.children[2].value;
-
   fetch("http://localhost:3000/monsters", {
     method: "POST",
     headers: {
@@ -112,6 +104,4 @@ function submitMonster(e) {
       description: description,
     }),
   })
-    .then((res) => res.json())
-    .then((successfulPost) => console.log(successfulPost));
 };
